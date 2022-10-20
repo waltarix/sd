@@ -59,9 +59,9 @@ impl App {
 
                 #[allow(unused_must_use)]
                 paths.par_iter().for_each(|p| {
-                    self.replacer.replace_file(p).map_err(|e| {
-                        eprintln!("Error processing {}: {}", p.display(), e)
-                    });
+                    self.replacer
+                        .replace_file(p)
+                        .map_err(|e| eprintln!("Error processing {}: {}", p.display(), e));
                 });
 
                 Ok(())
@@ -72,23 +72,16 @@ impl App {
                 let print_path = paths.len() > 1;
 
                 paths.iter().try_for_each(|path| {
-                    if let Err(_) = Replacer::check_not_empty(File::open(path)?)
-                    {
+                    if Replacer::check_not_empty(File::open(path)?).is_err() {
                         return Ok(());
                     }
-                    let file =
-                        unsafe { memmap::Mmap::map(&File::open(path)?)? };
+                    let file = unsafe { memmap::Mmap::map(&File::open(path)?)? };
                     if self.replacer.has_matches(&file) {
                         if print_path {
-                            writeln!(
-                                handle,
-                                "----- FILE {} -----",
-                                path.display()
-                            )?;
+                            writeln!(handle, "----- FILE {} -----", path.display())?;
                         }
 
-                        handle
-                            .write_all(&self.replacer.replace_preview(&file))?;
+                        handle.write_all(&self.replacer.replace_preview(&file))?;
                         writeln!(handle)?;
                     }
 
