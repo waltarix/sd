@@ -34,11 +34,11 @@ _sd() {
                     return 0
                     ;;
                 --flags)
-                    COMPREPLY=($(compgen -f "${cur}"))
+                    COMPREPLY=($(compgen -W "c e i m s w" -- "${cur}"))
                     return 0
                     ;;
                 -f)
-                    COMPREPLY=($(compgen -f "${cur}"))
+                    COMPREPLY=($(compgen -W "c e i m s w" -- "${cur}"))
                     return 0
                     ;;
                 *)

@@ -27,18 +27,24 @@ Limit the number of replacements that can occur per file. 0 indicates unlimited 
 .TP
 \fB\-f\fR, \fB\-\-flags\fR=\fIFLAGS\fR
 Regex flags. May be combined (like `\-f mc`).
+.br
 
-c \- case\-sensitive
-
-e \- disable multi\-line matching
-
-i \- case\-insensitive
-
-m \- multi\-line matching
-
-s \- make `.` match newlines
-
-w \- match full words only
+.br
+\fIPossible values:\fR
+.RS 14
+.IP \(bu 2
+c: case\-sensitive
+.IP \(bu 2
+e: disable multi\-line matching
+.IP \(bu 2
+i: case\-insensitive
+.IP \(bu 2
+m: multi\-line matching
+.IP \(bu 2
+s: make `.` match newlines
+.IP \(bu 2
+w: match full words only
+.RE
 .TP
 \fB\-h\fR, \fB\-\-help\fR
 Print help (see a summary with \*(Aq\-h\*(Aq)

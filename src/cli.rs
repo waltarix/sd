@@ -1,4 +1,4 @@
-use clap::Parser;
+use clap::{builder::PossibleValue, Parser};
 
 #[derive(Parser, Debug)]
 #[command(
@@ -39,22 +39,15 @@ pub struct Options {
     /// unlimited replacements.
     pub replacements: usize,
 
-    #[arg(short, long, verbatim_doc_comment)]
-    #[rustfmt::skip]
-    /** Regex flags. May be combined (like `-f mc`).
-
-c - case-sensitive
-
-e - disable multi-line matching
-
-i - case-insensitive
-
-m - multi-line matching
-
-s - make `.` match newlines
-
-w - match full words only
-    */
+    #[arg(short, long, verbatim_doc_comment, value_parser([
+        PossibleValue::new("c").help("case-sensitive"),
+        PossibleValue::new("e").help("disable multi-line matching"),
+        PossibleValue::new("i").help("case-insensitive"),
+        PossibleValue::new("m").help("multi-line matching"),
+        PossibleValue::new("s").help("make `.` match newlines"),
+        PossibleValue::new("w").help("match full words only"),
+    ]))]
+    /// Regex flags. May be combined (like `-f mc`).
     pub flags: Option<String>,
 
     /// The regexp or string (if using `-F`) to search for.
